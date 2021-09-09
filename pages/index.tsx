@@ -27,7 +27,7 @@ const Home: React.FC = () => {
         ))}
       </ul>
       <Link href="/read-cache" passHref>
-        <div>READ CACHE</div>
+        READ CACHE
       </Link>
     </Layout>
   )
