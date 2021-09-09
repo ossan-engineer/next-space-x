@@ -1,7 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
 // import styled from 'styled-components'
-// import { Button } from '@material-ui/core'
+import { Typography, Container, Button } from '@material-ui/core'
+import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 
 import Layout from 'components/Layout'
 import { useQueryRockets } from 'hooks/useQueryRockets'
@@ -20,15 +21,24 @@ const Home: React.FC = () => {
 
   return (
     <Layout title="home">
-      <div>Fetching by useQuery</div>
-      <ul>
+      <Container>
+        <Typography variant="h6" style={{ margin: '16px 0' }}>
+          Fetching by useQuery
+        </Typography>
         {data?.map((rocket) => (
-          <RocketItem key={rocket.id} rocket={rocket}></RocketItem>
+          <RocketItem
+            key={rocket.id}
+            rocket={rocket}
+            style={{ marginBottom: 16 }}
+          ></RocketItem>
         ))}
-      </ul>
-      <Link href="/read-cache" passHref>
-        READ CACHE
-      </Link>
+
+        <Link href="/read-cache" passHref>
+          <Button startIcon={<ChevronRightIcon></ChevronRightIcon>}>
+            READ CACHE
+          </Button>
+        </Link>
+      </Container>
     </Layout>
   )
 }

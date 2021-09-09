@@ -1,6 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
-import Imnage from 'next/image'
+import { AppBar, Toolbar, Typography } from '@material-ui/core'
+import styled from 'styled-components'
 
 type Props = {
   title: string
@@ -11,15 +12,22 @@ const Layout: React.FC<Props> = ({
   children
 }) => {
   return (
-    <div>
+    <Wrapper>
       <Head>
         <title>{title}</title>
       </Head>
-      <header>HEADER</header>
+      <AppBar position="static" style={{ alignItems: 'center' }}>
+        <Toolbar>
+          <Typography variant="h6">SpaceX Rockets</Typography>
+        </Toolbar>
+      </AppBar>
       <main>{children}</main>
-      <footer>FOOTER</footer>
-    </div>
+    </Wrapper>
   )
 }
+
+const Wrapper = styled.div`
+  margin: 16px 0;
+`
 
 export default Layout
