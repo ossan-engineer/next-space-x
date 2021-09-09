@@ -10,4 +10,6 @@ export type Rocket = {
   diameter: {
     meters: number
   }
+  description: string
+  wikipedia: string
 }

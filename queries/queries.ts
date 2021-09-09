@@ -14,6 +14,8 @@ export const GET_ROCKETS = gql`
       diameter {
         meters
       }
+      description
+      wikipedia
     }
   }
 `
