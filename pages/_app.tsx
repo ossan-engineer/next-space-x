@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AppProps } from 'next/app'
-import { SWRConfig } from 'swr'
-import axios from 'axios'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 import { ThemeProvider as StyledComponentsThemeProvider } from 'styled-components'
 import {
@@ -10,13 +10,10 @@ import {
 } from '@material-ui/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
-import useHello from 'hooks/useHello'
 import theme from 'styles/theme'
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
-  const { data, loading, error } = useHello()
-
-  console.log(data, loading, error)
+  const [queryClient] = useState(() => new QueryClient())
 
   // Remove the server-side injected CSS.(https://material-ui.com/guides/server-rendering/)
   useEffect(() => {
@@ -27,24 +24,17 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   }, [])
 
   return (
-    <StylesProvider injectFirst>
-      <MaterialUIThemeProvider theme={theme}>
-        <StyledComponentsThemeProvider theme={theme}>
-          <SWRConfig
-            value={{
-              fetcher: async (url: string) => {
-                const res = await axios.get(url)
-                const data = await res.data
-                return data
-              }
-            }}
-          >
+    <QueryClientProvider client={queryClient}>
+      <StylesProvider injectFirst>
+        <MaterialUIThemeProvider theme={theme}>
+          <StyledComponentsThemeProvider theme={theme}>
             <CssBaseline />
             <Component {...pageProps} />
-          </SWRConfig>
-        </StyledComponentsThemeProvider>
-      </MaterialUIThemeProvider>
-    </StylesProvider>
+            <ReactQueryDevtools></ReactQueryDevtools>
+          </StyledComponentsThemeProvider>
+        </MaterialUIThemeProvider>
+      </StylesProvider>
+    </QueryClientProvider>
   )
 }
 
