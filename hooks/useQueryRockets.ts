@@ -19,7 +19,7 @@ export const useQueryRockets = () => {
   return useQuery<Rocket[], Error>({
     queryKey: 'rockets',
     queryFn: fetchRockets,
-    staleTime: 10,
+    staleTime: 3000,
     refetchOnWindowFocus: false
     // refetchInterval: 3000
   })
